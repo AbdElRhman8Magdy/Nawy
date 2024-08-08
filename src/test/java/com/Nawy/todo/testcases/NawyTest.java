@@ -15,17 +15,17 @@ import java.io.IOException;
 
 import static com.Nawy.todo.base.utils.UserUtils.getRandomString;
 
-public class Dummy extends BaseTest {
+public class NawyTest extends BaseTest {
 
 
 
-        @Test(enabled = false)
+        @Test(enabled = true)
     public void Signup() throws IOException {
             LoginPage loginPage = new LoginPage(getDriver());
-            User RegisterBody =  UserUtils.GenerateRndmUserNAme();
-            loginPage.Load().login(RegisterBody);
+            User RegisterBody = UserUtils.GenAPIUSerData();
+            loginPage.login(RegisterBody);
             RegisterAPI registerAPI = new RegisterAPI();
-          registerAPI.register(loginPage);
+          registerAPI.register(new TaskAPI());
 
             TaskAPI taskAPI = new TaskAPI();
             taskAPI.AddTask();

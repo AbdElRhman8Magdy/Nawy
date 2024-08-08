@@ -19,6 +19,12 @@ public class UserUtils {
 
         return user;
     }
+    public static User GenAPIUSerData(){
+        String UserName = "Magdy"+getRandomString(6,true,true) + "@gmail.com";
+        String Password = "Magdy"+getRandomString(6,true,true) ;
+User APIUser = new User(UserName,Password);
+        return APIUser;
+    }
     public static UserName GenerateRndmUserNamefrst(){
 
         String firstName = new Faker().name().fullName();

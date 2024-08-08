@@ -1,33 +1,42 @@
 package com.Nawy.todo.API;
 
 import com.Nawy.todo.base.config.EndPoint;
-import com.Nawy.todo.base.utils.UserUtils;
+import com.Nawy.todo.base.utils.ConfigUtils;
 import com.Nawy.todo.objects.User;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 
 import static io.restassured.RestAssured.given;
 
-public class TaskAPI {
-    private final String sinNumber;
+public class TaskAPI extends RegisterAPI{
+    private String RegisterBody;
 
-    public TaskAPI( ) {
+    public TaskAPI() {
+    }
 
-        sinNumber = null;
+    public void useRegisterBody() {
+        RegisterAPI registerApi = new RegisterAPI();
+        registerApi.register(new TaskAPI()); // Assuming you have a LoginPage instance
+
+        String registerBody = registerApi.getRegisterBody();
+        // Use registerBody as needed
     }
 
 
     public String AddTask(){
 
-
-        User RegisterBody = UserUtils.GenerateRndmUserNAme();
+        RegisterAPI registerApi = new RegisterAPI();
+//        registerApi.register(new TaskAPI());
+        String UserName = ConfigUtils.GetInstance().ReturnEmail();
+        String Password = ConfigUtils.GetInstance().ReturnPassword();
+        User StticUser = new User(UserName,Password);
 
         Response response=
                 given()
                         .baseUri(EndPoint.API_BaseURI_ENDPOINT_Task)
                         .cookie("orangehrm")
                         .header("Content-Type","application/json")
-                        .body(RegisterBody)
+                        .body(StticUser)
                         .log().all()
                 .when()
                         .post(EndPoint.API_TASK_ENDPOINT)

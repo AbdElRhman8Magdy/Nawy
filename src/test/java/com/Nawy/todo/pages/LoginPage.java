@@ -83,6 +83,7 @@ public class LoginPage extends BasePage {
 LogOutBTN.isDisplayed();
         Assert.assertEquals(LogOutBTN.isDisplayed(),false);
         LogOutBTN.click();
+       // Alert alert = Wait.until(ExpectedConditions.alertIsPresent());
 
         Thread.sleep(500);
         Assert.assertEquals(LogOutBTN.isDisplayed(),false);

@@ -19,6 +19,9 @@ public class User {
 
     }
 
+    public User() {
+    }
+
 //    public UserName(String username) {
 //        this.username=username;
 //

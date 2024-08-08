@@ -1,50 +1,28 @@
 package com.Nawy.todo.API;
 
 import com.Nawy.todo.base.config.EndPoint;
-import com.Nawy.todo.base.utils.UserUtils;
 import com.Nawy.todo.objects.User;
-import com.Nawy.todo.pages.LoginPage;
-import io.restassured.http.Cookie;
 import io.restassured.response.Response;
 
-import java.util.List;
-
+import static com.Nawy.todo.base.utils.UserUtils.getRandomString;
 import static io.restassured.RestAssured.given;
 
 public class RegisterAPI {
 
-    private List<Cookie> RestAssurCookeis;
-    private String AccessToken;
-    private String userID;
-    private String employeeId;
-    private String EmpNumber;
 
-    public List<Cookie> getCookeis() {
-        return this.RestAssurCookeis;
-    }
-    public String getToken() {
-        return AccessToken;
-    }
-    public String getUserID() {
-        return this.userID;
-    }
-    public String getEmployeeId() {
-        return this.employeeId;
-    }
-    public String SetEmployeeId() {
-        return this.employeeId;
-    }
-    public String getEmpNumber(){
-        return this.EmpNumber;
-
-    }
+    public String RegisterBody;
+    private String APIUser;
 
 
 
-    public void register(LoginPage loginPage) {
+
+    public User register(TaskAPI api) {
 
 
-        User RegisterBody = UserUtils.GenerateRndmUserNAme();
+//        User RegisterBody = UserUtils.GenAPIUSerData();
+        String UserName = "Magdy"+getRandomString(6,true,true) + "@gmail.com";
+        String Password = "Magdy"+getRandomString(6,true,true) ;
+        User APIUser = new User(UserName,Password);
 
 
 
@@ -53,7 +31,7 @@ public class RegisterAPI {
                         .baseUri(EndPoint.API_BaseURI_ENDPOINT_Task)
 
                         .headers("Content-Type","application/json")
-                        .body(RegisterBody)
+                        .body(APIUser)
                         .log().all()
                 .when()
                         .post(EndPoint.API_REGISTER_ENDPOINT_Task)
@@ -68,18 +46,12 @@ public class RegisterAPI {
 
 
 
+     return (APIUser);
 
 
+    }
 
-//        JsonPath jsonPathEvaluator = response.jsonPath();
-//        EmpNumber = jsonPathEvaluator.getString("data.empNumber");
-//        System.out.println((jsonPathEvaluator.getString("data.empNumber")));
-//
-//        return new String(EmpNumber);
-
-
-
-
-
+    protected String getRegisterBody() {
+        return APIUser;
     }
 }
